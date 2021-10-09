@@ -4,27 +4,27 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class City {
+public class Airport {
     @Id
-    private String cityCode;
+    private String airportCode;
     private String airportLocation;
     private String airportName;
 
-    public City(String cityCode, String airportLocation, String airportName) {
-        this.cityCode = cityCode;
+    public Airport(String airportCode, String airportLocation, String airportName) {
+        this.airportCode = airportCode;
         this.airportLocation = airportLocation;
         this.airportName = airportName;
     }
 
-    public City() {
+    public Airport() {
     }
 
-    public String getCityCode() {
-        return cityCode;
+    public String getAirportCode() {
+        return airportCode;
     }
 
-    public void setCityCode(String cityCode) {
-        this.cityCode = cityCode;
+    public void setAirportCode(String airportCode) {
+        this.airportCode = airportCode;
     }
 
     public String getAirportLocation() {
@@ -41,14 +41,5 @@ public class City {
 
     public void setAirportName(String airportName) {
         this.airportName = airportName;
-    }
-
-    @Override
-    public String toString() {
-        return "City{" +
-                "cityCode='" + cityCode + '\'' +
-                ", airportLocation='" + airportLocation + '\'' +
-                ", airportName='" + airportName + '\'' +
-                '}';
     }
 }
