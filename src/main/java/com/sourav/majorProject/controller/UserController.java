@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
-@RestController
-public class HomeController {
+@RestController("/user")
+public class UserController {
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
@@ -31,11 +31,8 @@ public class HomeController {
     private UIDGenerator uidGenerator;
     @Autowired
     UserDao userDao;
-    @GetMapping("/")
-    public String home() {
-        return "<h1>Welcome<h1>";
-    }
-    @RequestMapping(value = "/v1/authenticate", method = RequestMethod.POST)
+
+    @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword()));
@@ -49,7 +46,7 @@ public class HomeController {
         return ResponseEntity.ok(response);
     }
 
-    @RequestMapping(value = "/v1/signup", method = RequestMethod.POST)
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public ResponseEntity<?> signup(@RequestBody User user) throws Exception {
         boolean isPresent = userDetailService.existsUser(user.getEmail());
         if (!isPresent) {
