@@ -11,10 +11,10 @@ public class Schedule {
     private BigInteger scheduleId;
 
     @OneToOne(fetch = FetchType.EAGER)
-    private City srcAirport;
+    private Airport srcAirport;
 
     @OneToOne(fetch = FetchType.EAGER)
-    private City dstnAirport;
+    private Airport dstnAirport;
 
     @Column(name = "departure_date")
 //	@JsonFormat(pattern = "mm-dd-yyyy HH:mm:ss")
@@ -34,7 +34,7 @@ public class Schedule {
     /*
      * Parameterized constructor
      */
-    public Schedule(BigInteger scheduleId, City srcAirport, City dstnAirport,
+    public Schedule(BigInteger scheduleId, Airport srcAirport, Airport dstnAirport,
                     String deptDateTime, String arrDateTime) {
         super();
         this.scheduleId = scheduleId;
@@ -55,19 +55,19 @@ public class Schedule {
         this.scheduleId = scheduleId;
     }
 
-    public City getSrcAirport() {
+    public Airport getSrcAirport() {
         return srcAirport;
     }
 
-    public void setSrcAirport(City srcAirport) {
+    public void setSrcAirport(Airport srcAirport) {
         this.srcAirport = srcAirport;
     }
 
-    public City getDstnAirport() {
+    public Airport getDstnAirport() {
         return dstnAirport;
     }
 
-    public void setDstnAirport(City dstnAirport) {
+    public void setDstnAirport(Airport dstnAirport) {
         this.dstnAirport = dstnAirport;
     }
 
