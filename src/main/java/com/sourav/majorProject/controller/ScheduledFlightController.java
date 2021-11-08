@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigInteger;
 
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/scheduledFlight")
 public class ScheduledFlightController {
     @Autowired

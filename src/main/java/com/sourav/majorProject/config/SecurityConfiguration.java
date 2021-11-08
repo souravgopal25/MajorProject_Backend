@@ -28,7 +28,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests().antMatchers("/v1/authenticate", "/v1/signup").
+        http.csrf().disable().authorizeRequests().antMatchers("/user/signup","/user/authenticate").
                 permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement()
@@ -44,6 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
+
         return NoOpPasswordEncoder.getInstance();
     }
 }

@@ -19,7 +19,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
-@RestController("/user")
+@RestController
+@RequestMapping("/user")
 public class UserController {
     @Autowired
     private AuthenticationManager authenticationManager;

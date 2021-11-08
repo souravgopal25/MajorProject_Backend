@@ -23,6 +23,8 @@ public class Schedule {
     @Column(name = "arrival_date")
 //	@JsonFormat(pattern = "mm-dd-yyyy HH:mm:ss")
     private String arrDateTime;
+    @Column(name="price")
+    private int price;
 
     /*
      * Default constructor
@@ -35,13 +37,22 @@ public class Schedule {
      * Parameterized constructor
      */
     public Schedule(BigInteger scheduleId, Airport srcAirport, Airport dstnAirport,
-                    String deptDateTime, String arrDateTime) {
+                    String deptDateTime, String arrDateTime,int price) {
         super();
         this.scheduleId = scheduleId;
         this.srcAirport = srcAirport;
         this.dstnAirport = dstnAirport;
         this.deptDateTime = deptDateTime;
         this.arrDateTime = arrDateTime;
+        this.price=price;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     /*
@@ -89,20 +100,24 @@ public class Schedule {
 
     @Override
     public String toString() {
-        return "Schedule [scheduleId=" + scheduleId + ", sourceAirport=" + srcAirport + ", destinationAirport="
-                + dstnAirport + ", departureDateTime=" + deptDateTime + ", arrivalDateTime="
-                + arrDateTime + "]";
+        return "Schedule{" +
+                "scheduleId=" + scheduleId +
+                ", srcAirport=" + srcAirport +
+                ", dstnAirport=" + dstnAirport +
+                ", deptDateTime='" + deptDateTime + '\'' +
+                ", arrDateTime='" + arrDateTime + '\'' +
+                ", price=" + price +
+                '}';
     }
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((arrDateTime == null) ? 0 : arrDateTime.hashCode());
-        result = prime * result + ((deptDateTime == null) ? 0 : deptDateTime.hashCode());
-        result = prime * result + ((dstnAirport == null) ? 0 : dstnAirport.hashCode());
-        result = prime * result + ((scheduleId == null) ? 0 : scheduleId.hashCode());
-        result = prime * result + ((srcAirport == null) ? 0 : srcAirport.hashCode());
+        int result = scheduleId != null ? scheduleId.hashCode() : 0;
+        result = 31 * result + (srcAirport != null ? srcAirport.hashCode() : 0);
+        result = 31 * result + (dstnAirport != null ? dstnAirport.hashCode() : 0);
+        result = 31 * result + (deptDateTime != null ? deptDateTime.hashCode() : 0);
+        result = 31 * result + (arrDateTime != null ? arrDateTime.hashCode() : 0);
+        result = 31 * result + price;
         return result;
     }
 
