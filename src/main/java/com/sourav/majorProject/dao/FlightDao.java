@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 import java.math.BigInteger;
 
 @Repository
-public interface FlightDao extends JpaRepository<Flight, BigInteger> {
+public interface FlightDao extends JpaRepository<Flight, String> {
 }

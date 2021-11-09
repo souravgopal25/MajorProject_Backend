@@ -11,9 +11,9 @@ public interface ScheduledFlightService {
 
     public ScheduledFlight modifyScheduledFlight(ScheduledFlight scheduledFlight);
 
-    public String removeScheduledFlight(BigInteger id) throws RecordNotFoundException;
+    public String removeScheduledFlight(String id) throws RecordNotFoundException;
 
     public Iterable<ScheduledFlight> viewAllScheduledFlights();
 
-    public ScheduledFlight viewScheduledFlight(BigInteger id) throws ScheduledFlightNotFoundException;
+    public ScheduledFlight viewScheduledFlight(String id) throws ScheduledFlightNotFoundException;
 }

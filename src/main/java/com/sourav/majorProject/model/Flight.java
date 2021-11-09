@@ -7,12 +7,12 @@ import java.math.BigInteger;
 @Entity
 public class Flight {
     @Id
-    private BigInteger flightNo;
+    private String flightNo;
     private String carrierName;
     private String flightModel;
     private int seatCapacity;
 
-    public Flight(BigInteger flightNo, String carrierName, String flightModel, int seatCapacity) {
+    public Flight(String flightNo, String carrierName, String flightModel, int seatCapacity) {
         this.flightNo = flightNo;
         this.carrierName = carrierName;
         this.flightModel = flightModel;
@@ -22,11 +22,11 @@ public class Flight {
     public Flight() {
     }
 
-    public BigInteger getFlightNo() {
+    public String getFlightNo() {
         return flightNo;
     }
 
-    public void setFlightNo(BigInteger flightNo) {
+    public void setFlightNo(String flightNo) {
         this.flightNo = flightNo;
     }
 

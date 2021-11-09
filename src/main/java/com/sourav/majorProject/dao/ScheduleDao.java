@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 import java.math.BigInteger;
 
 @Repository
-public interface ScheduleDao extends JpaRepository<Schedule, BigInteger> {
+public interface ScheduleDao extends JpaRepository<Schedule, String> {
 }

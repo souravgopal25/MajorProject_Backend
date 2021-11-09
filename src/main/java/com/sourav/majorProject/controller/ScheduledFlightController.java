@@ -68,12 +68,12 @@ public class ScheduledFlightController {
 
     }
     @DeleteMapping("/delete")
-    public String deleteSF(@RequestParam BigInteger flightId) throws RecordNotFoundException {
+    public String deleteSF(@RequestParam String flightId) throws RecordNotFoundException {
         return scheduleFlightService.removeScheduledFlight(flightId);
     }
     @GetMapping("/search")
     @ExceptionHandler(ScheduledFlightNotFoundException.class)
-    public ResponseEntity<ScheduledFlight> viewSF(@RequestParam BigInteger flightId) throws ScheduledFlightNotFoundException {
+    public ResponseEntity<ScheduledFlight> viewSF(@RequestParam String flightId) throws ScheduledFlightNotFoundException {
         ScheduledFlight searchSFlight = scheduleFlightService.viewScheduledFlight(flightId);
         if (searchSFlight == null) {
             return new ResponseEntity("Flight not present", HttpStatus.BAD_REQUEST);

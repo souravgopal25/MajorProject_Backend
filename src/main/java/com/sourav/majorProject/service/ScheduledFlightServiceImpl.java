@@ -9,7 +9,7 @@ import com.sourav.majorProject.model.ScheduledFlight;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigInteger;
+
 import java.util.Optional;
 
 @Service
@@ -42,7 +42,7 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService{
     }
 
     @Override
-    public String removeScheduledFlight(BigInteger id) throws RecordNotFoundException {
+    public String removeScheduledFlight(String id) throws RecordNotFoundException {
         if (id == null)
             throw new RecordNotFoundException("Enter flight Id");
         Optional<ScheduledFlight> scheduleFlight = dao.findById(id);
@@ -60,7 +60,7 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService{
     }
 
     @Override
-    public ScheduledFlight viewScheduledFlight(BigInteger id) throws ScheduledFlightNotFoundException {
+    public ScheduledFlight viewScheduledFlight(String id) throws ScheduledFlightNotFoundException {
         if (id == null)
             throw new ScheduledFlightNotFoundException("Enter flight Id");
         Optional<ScheduledFlight> scheduleFlight = dao.findById(id);

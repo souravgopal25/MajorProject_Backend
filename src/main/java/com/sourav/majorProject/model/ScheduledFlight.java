@@ -9,7 +9,7 @@ import java.math.BigInteger;
 public class ScheduledFlight {
     @Id
     @Column(name = "schedule_flight_id")
-    private BigInteger scheduleFlightId;
+    private String scheduleFlightId;
 
     @OneToOne(fetch = FetchType.EAGER)
     @NotNull
@@ -30,27 +30,24 @@ public class ScheduledFlight {
 
     }
 
-    /*
-     * Parameterized constructor
-     */
-    public ScheduledFlight(BigInteger scheduleFlightId, Flight flight, Integer availableSeats,
-                           Schedule schedule) {
-        super();
+
+    public String getScheduleFlightId() {
+        return scheduleFlightId;
+    }
+
+    public void setScheduleFlightId(String scheduleFlightId) {
+        this.scheduleFlightId = scheduleFlightId;
+    }
+
+    public void setAvailableSeats(Integer availableSeats) {
+        this.availableSeats = availableSeats;
+    }
+
+    public ScheduledFlight(String scheduleFlightId, Flight flight, Integer availableSeats, Schedule schedule) {
         this.scheduleFlightId = scheduleFlightId;
         this.flight = flight;
         this.availableSeats = availableSeats;
         this.schedule = schedule;
-    }
-
-    /*
-     * Getter and setter for ID
-     */
-    public BigInteger getScheduleFlightId() {
-        return scheduleFlightId;
-    }
-
-    public void setScheduleFlightId(BigInteger scheduleFlightId) {
-        this.scheduleFlightId = scheduleFlightId;
     }
 
     /*
@@ -88,18 +85,20 @@ public class ScheduledFlight {
 
     @Override
     public String toString() {
-        return "ScheduledFlight [scheduleFlightId=" + scheduleFlightId + ", flight=" + flight + ", availableSeats="
-                + availableSeats + ", schedule=" + schedule + "]";
+        return "ScheduledFlight{" +
+                "scheduleFlightId='" + scheduleFlightId + '\'' +
+                ", flight=" + flight +
+                ", availableSeats=" + availableSeats +
+                ", schedule=" + schedule +
+                '}';
     }
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((availableSeats == null) ? 0 : availableSeats.hashCode());
-        result = prime * result + ((flight == null) ? 0 : flight.hashCode());
-        result = prime * result + ((schedule == null) ? 0 : schedule.hashCode());
-        result = prime * result + ((scheduleFlightId == null) ? 0 : scheduleFlightId.hashCode());
+        int result = scheduleFlightId.hashCode();
+        result = 31 * result + flight.hashCode();
+        result = 31 * result + availableSeats.hashCode();
+        result = 31 * result + schedule.hashCode();
         return result;
     }
 

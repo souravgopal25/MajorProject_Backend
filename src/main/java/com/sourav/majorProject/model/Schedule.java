@@ -6,9 +6,18 @@ import java.math.BigInteger;
 @Entity
 @Table(name = "schedule")
 public class Schedule {
+    public Schedule(String scheduleId, Airport srcAirport, Airport dstnAirport, String deptDateTime, String arrDateTime, int minPrice, int maxPrice) {
+        this.scheduleId = scheduleId;
+        this.srcAirport = srcAirport;
+        this.dstnAirport = dstnAirport;
+        this.deptDateTime = deptDateTime;
+        this.arrDateTime = arrDateTime;
+        this.minPrice = minPrice;
+        this.maxPrice = maxPrice;
+    }
+
     @Id
-    @Column(name = "schedule_Id")
-    private BigInteger scheduleId;
+    private String scheduleId;
 
     @OneToOne(fetch = FetchType.EAGER)
     private Airport srcAirport;
@@ -23,8 +32,10 @@ public class Schedule {
     @Column(name = "arrival_date")
 //	@JsonFormat(pattern = "mm-dd-yyyy HH:mm:ss")
     private String arrDateTime;
-    @Column(name="price")
-    private int price;
+    @Column(name = "min_price")
+    private int minPrice;
+    @Column(name = "max_price")
+    private int maxPrice;
 
     /*
      * Default constructor
@@ -36,33 +47,33 @@ public class Schedule {
     /*
      * Parameterized constructor
      */
-    public Schedule(BigInteger scheduleId, Airport srcAirport, Airport dstnAirport,
-                    String deptDateTime, String arrDateTime,int price) {
-        super();
-        this.scheduleId = scheduleId;
-        this.srcAirport = srcAirport;
-        this.dstnAirport = dstnAirport;
-        this.deptDateTime = deptDateTime;
-        this.arrDateTime = arrDateTime;
-        this.price=price;
+
+
+    public int getMinPrice() {
+        return minPrice;
     }
 
-    public int getPrice() {
-        return price;
+    public void setMinPrice(int minPrice) {
+        this.minPrice = minPrice;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public int getMaxPrice() {
+        return maxPrice;
+    }
+
+    public void setMaxPrice(int maxPrice) {
+        this.maxPrice = maxPrice;
     }
 
     /*
      * Getters and setters
      */
-    public BigInteger getScheduleId() {
+
+    public String getScheduleId() {
         return scheduleId;
     }
 
-    public void setScheduleId(BigInteger scheduleId) {
+    public void setScheduleId(String scheduleId) {
         this.scheduleId = scheduleId;
     }
 
@@ -106,18 +117,20 @@ public class Schedule {
                 ", dstnAirport=" + dstnAirport +
                 ", deptDateTime='" + deptDateTime + '\'' +
                 ", arrDateTime='" + arrDateTime + '\'' +
-                ", price=" + price +
+                ", minPrice=" + minPrice +
+                ", maxPrice=" + maxPrice +
                 '}';
     }
 
     @Override
     public int hashCode() {
-        int result = scheduleId != null ? scheduleId.hashCode() : 0;
-        result = 31 * result + (srcAirport != null ? srcAirport.hashCode() : 0);
-        result = 31 * result + (dstnAirport != null ? dstnAirport.hashCode() : 0);
-        result = 31 * result + (deptDateTime != null ? deptDateTime.hashCode() : 0);
-        result = 31 * result + (arrDateTime != null ? arrDateTime.hashCode() : 0);
-        result = 31 * result + price;
+        int result = scheduleId.hashCode();
+        result = 31 * result + srcAirport.hashCode();
+        result = 31 * result + dstnAirport.hashCode();
+        result = 31 * result + deptDateTime.hashCode();
+        result = 31 * result + arrDateTime.hashCode();
+        result = 31 * result + minPrice;
+        result = 31 * result + maxPrice;
         return result;
     }
 

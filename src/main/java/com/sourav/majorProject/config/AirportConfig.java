@@ -4,9 +4,9 @@ import com.cedarsoftware.util.io.JsonReader;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.sourav.majorProject.dao.AirportDao;
-import com.sourav.majorProject.model.Airport;
-import com.sourav.majorProject.model.ResponseAirport;
-import com.sourav.majorProject.model.ResponseAirportItem;
+import com.sourav.majorProject.dao.FlightDao;
+import com.sourav.majorProject.dao.ScheduleDao;
+import com.sourav.majorProject.model.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -50,6 +50,22 @@ public class AirportConfig {
                 list.add(airport);
             }
             airportDao.saveAll(list);
+
+        };
+    }
+    @Bean
+    CommandLineRunner commandLineRunner(ScheduleDao scheduleDao, AirportDao airportDao, FlightDao flightDao){
+        return args -> {
+            Flight flight=new Flight("6E525","Indigo","A320",180);
+            flightDao.save(flight);
+            Airport airport=airportDao.getById("BBI");
+            Airport airport1=airportDao.getById("BLR");
+            Schedule schedule=new Schedule("6E525",airport,airport1,"00:00","03:00",5000,7500);
+            scheduleDao.save(schedule);
+            Flight flight1=flightDao.getById("6E525");
+            Schedule schedule1=scheduleDao.getById("6E525");
+            ScheduledFlight scheduledFlight=new ScheduledFlight();
+
 
         };
     }
