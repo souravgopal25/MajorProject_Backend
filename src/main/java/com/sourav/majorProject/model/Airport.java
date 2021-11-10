@@ -1,5 +1,7 @@
 package com.sourav.majorProject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.Hibernate;
 
 import javax.persistence.Entity;
@@ -8,6 +10,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true, value = {"hibernateLazyInitializer", "handler"})
 public class Airport implements Serializable {
     @Id
     private String airportCode;
