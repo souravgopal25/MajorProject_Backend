@@ -28,7 +28,7 @@ public class FlightController {
 
     @GetMapping("/viewFlight/{id}")
     @ExceptionHandler(RecordNotFoundException.class)
-    public Flight viewFlight(@PathVariable("id") BigInteger flightNo) {
+    public Flight viewFlight(@PathVariable("id") String flightNo) {
         return flightService.viewFlight(flightNo);
     }
 
@@ -40,7 +40,7 @@ public class FlightController {
 
     @DeleteMapping("/deleteFlight/{id}")
     @ExceptionHandler(RecordNotFoundException.class)
-    public void removeFlight(@PathVariable("id") BigInteger flightNo) {
+    public void removeFlight(@PathVariable("id") String flightNo) {
         flightService.removeFlight(flightNo);
     }
 }

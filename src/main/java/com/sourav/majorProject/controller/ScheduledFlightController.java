@@ -2,6 +2,7 @@ package com.sourav.majorProject.controller;
 
 import com.sourav.majorProject.exceptions.RecordNotFoundException;
 import com.sourav.majorProject.exceptions.ScheduledFlightNotFoundException;
+import com.sourav.majorProject.model.FlightQuery;
 import com.sourav.majorProject.model.Schedule;
 import com.sourav.majorProject.model.ScheduledFlight;
 import com.sourav.majorProject.service.AirportService;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigInteger;
+import java.util.List;
 
 @RestController
 @RequestMapping("/scheduledFlight")
@@ -41,8 +43,8 @@ public class ScheduledFlightController {
         } catch (RecordNotFoundException e) {
             return new ResponseEntity("Airport Not Found", HttpStatus.BAD_REQUEST);
         }
-        schedule.setDeptDateTime(departureTime);
-        schedule.setArrDateTime(arrivalTime);
+        schedule.setDeptTime(departureTime);
+        schedule.setArrTime(arrivalTime);
         try {
             scheduledFlight.setFlight(flightService.viewFlight(scheduledFlight.getScheduleFlightId()));
         } catch (RecordNotFoundException e1) {
@@ -71,18 +73,22 @@ public class ScheduledFlightController {
     public String deleteSF(@RequestParam String flightId) throws RecordNotFoundException {
         return scheduleFlightService.removeScheduledFlight(flightId);
     }
-    @GetMapping("/search")
-    @ExceptionHandler(ScheduledFlightNotFoundException.class)
-    public ResponseEntity<ScheduledFlight> viewSF(@RequestParam String flightId) throws ScheduledFlightNotFoundException {
-        ScheduledFlight searchSFlight = scheduleFlightService.viewScheduledFlight(flightId);
-        if (searchSFlight == null) {
-            return new ResponseEntity("Flight not present", HttpStatus.BAD_REQUEST);
-        } else {
-            return new ResponseEntity<ScheduledFlight>(searchSFlight, HttpStatus.OK);
-        }
-    }
+//    @GetMapping("/search")
+//    @ExceptionHandler(ScheduledFlightNotFoundException.class)
+//    public ResponseEntity<ScheduledFlight> viewSF(@RequestParam String flightId) throws ScheduledFlightNotFoundException {
+//        ScheduledFlight searchSFlight = scheduleFlightService.viewScheduledFlight(flightId);
+//        if (searchSFlight == null) {
+//            return new ResponseEntity("Flight not present", HttpStatus.BAD_REQUEST);
+//        } else {
+//            return new ResponseEntity<ScheduledFlight>(searchSFlight, HttpStatus.OK);
+//        }
+//    }
     @GetMapping("/viewAll")
     public Iterable<ScheduledFlight> viewAllSF() {
         return scheduleFlightService.viewAllScheduledFlights();
+    }
+    @GetMapping("/search")
+    public Iterable<ScheduledFlight> viewScheduledFlight(@RequestBody FlightQuery flightQuery){
+        return scheduleFlightService.viewScheduledFlightOnDate(flightQuery.getSource(),flightQuery.getDestination(), flightQuery.getDate());
     }
 }

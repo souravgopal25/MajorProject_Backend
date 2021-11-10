@@ -6,6 +6,7 @@ import com.google.gson.JsonArray;
 import com.sourav.majorProject.dao.AirportDao;
 import com.sourav.majorProject.dao.FlightDao;
 import com.sourav.majorProject.dao.ScheduleDao;
+import com.sourav.majorProject.dao.ScheduledFlightDao;
 import com.sourav.majorProject.model.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -40,31 +41,25 @@ public class AirportConfig {
     }
 
     @Bean
-    CommandLineRunner commandLineRunner(AirportDao airportDao) {
+    CommandLineRunner commandLineRunner(ScheduleDao scheduleDao, AirportDao airportDao, FlightDao flightDao, ScheduledFlightDao scheduledFlightDao){
         return args -> {
-            //    Airport airport = new Airport("IXA", "Agartala", "Singerbhil Airport");
-            ResponseAirportItem[] responseAirportItems = getJSON("src/main/resources/json/airports.json");
-            List<Airport> list = new ArrayList<>();
-            for (ResponseAirportItem obj : responseAirportItems) {
-                Airport airport = new Airport(obj.getIATACode(), obj.getCityName(), obj.getAirportName());
-                list.add(airport);
-            }
-            airportDao.saveAll(list);
-
-        };
-    }
-    @Bean
-    CommandLineRunner commandLineRunner(ScheduleDao scheduleDao, AirportDao airportDao, FlightDao flightDao){
-        return args -> {
-            Flight flight=new Flight("6E525","Indigo","A320",180);
-            flightDao.save(flight);
-            Airport airport=airportDao.getById("BBI");
-            Airport airport1=airportDao.getById("BLR");
-            Schedule schedule=new Schedule("6E525",airport,airport1,"00:00","03:00",5000,7500);
-            scheduleDao.save(schedule);
-            Flight flight1=flightDao.getById("6E525");
-            Schedule schedule1=scheduleDao.getById("6E525");
-            ScheduledFlight scheduledFlight=new ScheduledFlight();
+//            ResponseAirportItem[] responseAirportItems = getJSON("src/main/resources/json/airports.json");
+//            List<Airport> list = new ArrayList<>();
+//            for (ResponseAirportItem obj : responseAirportItems) {
+//                Airport airport = new Airport(obj.getIATACode(), obj.getCityName(), obj.getAirportName());
+//                list.add(airport);
+//            }
+//            airportDao.saveAll(list);
+//            Flight flight=new Flight("6E525","Indigo","A320",180);
+//            flightDao.save(flight);
+//            Airport airport=airportDao.getById("IXA");
+//            Airport airport1=airportDao.getById("AGX");
+//            Schedule schedule=new Schedule("6E525",airport,airport1,"05:00","09:00","10/11/2021",5000,7500);
+//            scheduleDao.save(schedule);
+//            //Flight flight1=flightDao.getById("6E525");
+//            //Schedule schedule1=scheduleDao.getById("6E525");
+//            ScheduledFlight scheduledFlight=new ScheduledFlight("6E525",flight,flight.getSeatCapacity(),schedule);
+//            scheduledFlightDao.save(scheduledFlight);
 
 
         };

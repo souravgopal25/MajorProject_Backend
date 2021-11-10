@@ -16,4 +16,5 @@ public interface ScheduledFlightService {
     public Iterable<ScheduledFlight> viewAllScheduledFlights();
 
     public ScheduledFlight viewScheduledFlight(String id) throws ScheduledFlightNotFoundException;
+    public Iterable<ScheduledFlight> viewScheduledFlightOnDate(String srcAirport,String destnAirport,String date) throws ScheduledFlightNotFoundException;
 }

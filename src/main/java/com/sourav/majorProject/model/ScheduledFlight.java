@@ -22,6 +22,10 @@ public class ScheduledFlight {
     @NotNull
     @OneToOne(cascade = CascadeType.ALL)
     private Schedule schedule;
+    @NotNull
+    @Transient
+    private int price;
+
 
     /*
      * Default constructor
@@ -91,6 +95,22 @@ public class ScheduledFlight {
                 ", availableSeats=" + availableSeats +
                 ", schedule=" + schedule +
                 '}';
+    }
+
+    public int getPrice() {
+        int totalSeats = flight.getSeatCapacity();
+        float percent = availableSeats / totalSeats;
+        int price1 = (int) (schedule.getMinPrice() * (1 + (1 - percent)));
+        if (price1 > getSchedule().getMaxPrice()) {
+            return schedule.getMaxPrice();
+        } else {
+            return price1;
+        }
+
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     @Override

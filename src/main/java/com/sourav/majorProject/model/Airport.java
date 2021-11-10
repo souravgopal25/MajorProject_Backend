@@ -4,10 +4,11 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-public class Airport {
+public class Airport implements Serializable {
     @Id
     private String airportCode;
     private String airportLocation;

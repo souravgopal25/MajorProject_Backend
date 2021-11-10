@@ -6,12 +6,13 @@ import java.math.BigInteger;
 @Entity
 @Table(name = "schedule")
 public class Schedule {
-    public Schedule(String scheduleId, Airport srcAirport, Airport dstnAirport, String deptDateTime, String arrDateTime, int minPrice, int maxPrice) {
+    public Schedule(String scheduleId, Airport srcAirport, Airport dstnAirport, String deptTime, String arrTime, String date, int minPrice, int maxPrice) {
         this.scheduleId = scheduleId;
         this.srcAirport = srcAirport;
         this.dstnAirport = dstnAirport;
-        this.deptDateTime = deptDateTime;
-        this.arrDateTime = arrDateTime;
+        this.deptTime = deptTime;
+        this.arrTime = arrTime;
+        this.date = date;
         this.minPrice = minPrice;
         this.maxPrice = maxPrice;
     }
@@ -25,13 +26,14 @@ public class Schedule {
     @OneToOne(fetch = FetchType.EAGER)
     private Airport dstnAirport;
 
-    @Column(name = "departure_date")
-//	@JsonFormat(pattern = "mm-dd-yyyy HH:mm:ss")
-    private String deptDateTime;
+    @Column(name = "departure_time")
+    private String deptTime;
 
-    @Column(name = "arrival_date")
-//	@JsonFormat(pattern = "mm-dd-yyyy HH:mm:ss")
-    private String arrDateTime;
+    @Column(name = "arrival_time")
+    private String arrTime;
+//   dd/mm/yyyy
+    @Column(name = "date")
+    private String date;
     @Column(name = "min_price")
     private int minPrice;
     @Column(name = "max_price")
@@ -93,33 +95,21 @@ public class Schedule {
         this.dstnAirport = dstnAirport;
     }
 
-    public String getDeptDateTime() {
-        return deptDateTime;
-    }
-
-    public void setDeptDateTime(String deptDateTime) {
-        this.deptDateTime = deptDateTime;
-    }
-
-    public String getArrDateTime() {
-        return arrDateTime;
-    }
-
-    public void setArrDateTime(String arrDateTime) {
-        this.arrDateTime = arrDateTime;
-    }
-
     @Override
-    public String toString() {
-        return "Schedule{" +
-                "scheduleId=" + scheduleId +
-                ", srcAirport=" + srcAirport +
-                ", dstnAirport=" + dstnAirport +
-                ", deptDateTime='" + deptDateTime + '\'' +
-                ", arrDateTime='" + arrDateTime + '\'' +
-                ", minPrice=" + minPrice +
-                ", maxPrice=" + maxPrice +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Schedule)) return false;
+
+        Schedule schedule = (Schedule) o;
+
+        if (minPrice != schedule.minPrice) return false;
+        if (maxPrice != schedule.maxPrice) return false;
+        if (!scheduleId.equals(schedule.scheduleId)) return false;
+        if (!srcAirport.equals(schedule.srcAirport)) return false;
+        if (!dstnAirport.equals(schedule.dstnAirport)) return false;
+        if (!deptTime.equals(schedule.deptTime)) return false;
+        if (!arrTime.equals(schedule.arrTime)) return false;
+        return date.equals(schedule.date);
     }
 
     @Override
@@ -127,48 +117,35 @@ public class Schedule {
         int result = scheduleId.hashCode();
         result = 31 * result + srcAirport.hashCode();
         result = 31 * result + dstnAirport.hashCode();
-        result = 31 * result + deptDateTime.hashCode();
-        result = 31 * result + arrDateTime.hashCode();
+        result = 31 * result + deptTime.hashCode();
+        result = 31 * result + arrTime.hashCode();
+        result = 31 * result + date.hashCode();
         result = 31 * result + minPrice;
         result = 31 * result + maxPrice;
         return result;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Schedule other = (Schedule) obj;
-        if (arrDateTime == null) {
-            if (other.arrDateTime != null)
-                return false;
-        } else if (!arrDateTime.equals(other.arrDateTime))
-            return false;
-        if (deptDateTime == null) {
-            if (other.deptDateTime != null)
-                return false;
-        } else if (!deptDateTime.equals(other.deptDateTime))
-            return false;
-        if (dstnAirport == null) {
-            if (other.dstnAirport != null)
-                return false;
-        } else if (!dstnAirport.equals(other.dstnAirport))
-            return false;
-        if (scheduleId == null) {
-            if (other.scheduleId != null)
-                return false;
-        } else if (!scheduleId.equals(other.scheduleId))
-            return false;
-        if (srcAirport == null) {
-            if (other.srcAirport != null)
-                return false;
-        } else if (!srcAirport.equals(other.srcAirport))
-            return false;
-        return true;
+    public String getDeptTime() {
+        return deptTime;
     }
 
+    public void setDeptTime(String deptTime) {
+        this.deptTime = deptTime;
+    }
+
+    public String getArrTime() {
+        return arrTime;
+    }
+
+    public void setArrTime(String arrTime) {
+        this.arrTime = arrTime;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 }
