@@ -27,38 +27,38 @@ public class ScheduledFlightController {
 
     @Autowired
     FlightService flightService;
-    @PostMapping("/add")
-    public ResponseEntity<ScheduledFlight> addSF(@ModelAttribute ScheduledFlight scheduledFlight,
-                                                 @RequestParam(name = "srcAirport") String source, @RequestParam(name = "dstnAirport") String destination,
-                                                 @RequestParam(name = "deptDateTime") String departureTime, @RequestParam(name = "arrDateTime") String arrivalTime) {
-        Schedule schedule = new Schedule();
-        schedule.setScheduleId(scheduledFlight.getScheduleFlightId());
-        try {
-            schedule.setSrcAirport(airportService.viewAirport(source));
-        } catch (RecordNotFoundException e) {
-            return new ResponseEntity("Airport Not Found", HttpStatus.BAD_REQUEST);
-        }
-        try {
-            schedule.setDstnAirport(airportService.viewAirport(destination));
-        } catch (RecordNotFoundException e) {
-            return new ResponseEntity("Airport Not Found", HttpStatus.BAD_REQUEST);
-        }
-        schedule.setDeptTime(departureTime);
-        schedule.setArrTime(arrivalTime);
-        try {
-            scheduledFlight.setFlight(flightService.viewFlight(scheduledFlight.getScheduleFlightId()));
-        } catch (RecordNotFoundException e1) {
-            return new ResponseEntity("Flight Not Found", HttpStatus.BAD_REQUEST);
-        }
-        scheduledFlight.setSchedule(schedule);
-        scheduledFlight.setAvailableSeats(scheduledFlight.getFlight().getSeatCapacity());
-        try {
-            return new ResponseEntity<ScheduledFlight>(scheduleFlightService.addScheduledFlight(scheduledFlight),
-                    HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity("Error adding Flight." + e, HttpStatus.BAD_REQUEST);
-        }
-    }
+//    @PostMapping("/add")
+//    public ResponseEntity<ScheduledFlight> addSF(@ModelAttribute ScheduledFlight scheduledFlight,
+//                                                 @RequestParam(name = "srcAirport") String source, @RequestParam(name = "dstnAirport") String destination,
+//                                                 @RequestParam(name = "deptDateTime") String departureTime, @RequestParam(name = "arrDateTime") String arrivalTime) {
+//        Schedule schedule = new Schedule();
+//        schedule.setScheduleId(scheduledFlight.getScheduleFlightId());
+//        try {
+//            schedule.setSrcAirport(airportService.viewAirport(source));
+//        } catch (RecordNotFoundException e) {
+//            return new ResponseEntity("Airport Not Found", HttpStatus.BAD_REQUEST);
+//        }
+//        try {
+//            schedule.setDstnAirport(airportService.viewAirport(destination));
+//        } catch (RecordNotFoundException e) {
+//            return new ResponseEntity("Airport Not Found", HttpStatus.BAD_REQUEST);
+//        }
+//        schedule.setDeptTime(departureTime);
+//        schedule.setArrTime(arrivalTime);
+//        try {
+//            scheduledFlight.setFlight(flightService.viewFlight(scheduledFlight.getScheduleFlightId()));
+//        } catch (RecordNotFoundException e1) {
+//            return new ResponseEntity("Flight Not Found", HttpStatus.BAD_REQUEST);
+//        }
+//        scheduledFlight.setSchedule(schedule);
+//        scheduledFlight.setAvailableSeats(scheduledFlight.getFlight().getSeatCapacity());
+//        try {
+//            return new ResponseEntity<ScheduledFlight>(scheduleFlightService.addScheduledFlight(scheduledFlight),
+//                    HttpStatus.OK);
+//        } catch (Exception e) {
+//            return new ResponseEntity("Error adding Flight." + e, HttpStatus.BAD_REQUEST);
+//        }
+//    }
     @PutMapping("/modify")
     public ResponseEntity<ScheduledFlight> modifyScheduleFlight(@ModelAttribute ScheduledFlight scheduleFlight) {
         ScheduledFlight modifySFlight = scheduleFlightService.modifyScheduledFlight(scheduleFlight);
@@ -70,25 +70,16 @@ public class ScheduledFlightController {
 
     }
     @DeleteMapping("/delete")
-    public String deleteSF(@RequestParam String flightId) throws RecordNotFoundException {
+    public String deleteSF(@RequestParam Integer flightId) throws RecordNotFoundException {
         return scheduleFlightService.removeScheduledFlight(flightId);
     }
-//    @GetMapping("/search")
-//    @ExceptionHandler(ScheduledFlightNotFoundException.class)
-//    public ResponseEntity<ScheduledFlight> viewSF(@RequestParam String flightId) throws ScheduledFlightNotFoundException {
-//        ScheduledFlight searchSFlight = scheduleFlightService.viewScheduledFlight(flightId);
-//        if (searchSFlight == null) {
-//            return new ResponseEntity("Flight not present", HttpStatus.BAD_REQUEST);
-//        } else {
-//            return new ResponseEntity<ScheduledFlight>(searchSFlight, HttpStatus.OK);
-//        }
-//    }
+
     @GetMapping("/viewAll")
     public Iterable<ScheduledFlight> viewAllSF() {
         return scheduleFlightService.viewAllScheduledFlights();
     }
     @GetMapping("/search")
     public Iterable<ScheduledFlight> viewScheduledFlight(@RequestBody FlightQuery flightQuery){
-        return scheduleFlightService.viewScheduledFlightOnDate(flightQuery.getSource(),flightQuery.getDestination(), flightQuery.getDate());
+        return scheduleFlightService.viewScheduledFlightOnDate(flightQuery.getSource(),flightQuery.getDestination(), flightQuery.getDate(),flightQuery.getPassenger());
     }
 }

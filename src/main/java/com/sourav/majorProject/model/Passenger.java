@@ -1,16 +1,22 @@
 package com.sourav.majorProject.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigInteger;
 
 @Entity
 public class Passenger {
     @Id
+    @SequenceGenerator(
+            name = "passengerNumber",
+            sequenceName = "passengerNumber",
+            allocationSize = 1
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "passengerNumber")
     private BigInteger pnrNumber;
     private String passengerName;
     private int passengerAge;
-    private BigInteger passengerUIN;
+
+    private String passengerUIN;
 
 
     public BigInteger getPnrNumber() {
@@ -37,11 +43,11 @@ public class Passenger {
         this.passengerAge = passengerAge;
     }
 
-    public BigInteger getPassengerUIN() {
+    public String getPassengerUIN() {
         return passengerUIN;
     }
 
-    public void setPassengerUIN(BigInteger passengerUIN) {
+    public void setPassengerUIN(String passengerUIN) {
         this.passengerUIN = passengerUIN;
     }
 

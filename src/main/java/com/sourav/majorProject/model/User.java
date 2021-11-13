@@ -5,6 +5,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "user_table")
@@ -27,11 +28,13 @@ public class User {
     @NonNull
     private String lastName;
     @NonNull
-    private String uid;
+    public String uid;
     @Nullable
     private String photoUrl;
     @NonNull
     private String email;
+    @OneToMany
+    List<FlightBooking> flightBookings;
 
     public User( @NonNull String password,  @NonNull String roles, @NonNull String firstName, @NonNull String lastName, @NonNull String uid, @Nullable String photoUrl, @NonNull String email) {
         this.password = password;

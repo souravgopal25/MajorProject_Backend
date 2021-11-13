@@ -11,10 +11,10 @@ public interface ScheduledFlightService {
 
     public ScheduledFlight modifyScheduledFlight(ScheduledFlight scheduledFlight);
 
-    public String removeScheduledFlight(String id) throws RecordNotFoundException;
+    public String removeScheduledFlight(Integer id) throws RecordNotFoundException;
 
     public Iterable<ScheduledFlight> viewAllScheduledFlights();
 
-    public ScheduledFlight viewScheduledFlight(String id) throws ScheduledFlightNotFoundException;
-    public Iterable<ScheduledFlight> viewScheduledFlightOnDate(String srcAirport,String destnAirport,String date) throws ScheduledFlightNotFoundException;
+    public ScheduledFlight viewScheduledFlight(Integer id) throws ScheduledFlightNotFoundException;
+    public Iterable<ScheduledFlight> viewScheduledFlightOnDate(String srcAirport,String destnAirport,String date,int pax) throws ScheduledFlightNotFoundException;
 }

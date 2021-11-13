@@ -8,8 +8,14 @@ import java.math.BigInteger;
 @Entity
 public class ScheduledFlight {
     @Id
+    @SequenceGenerator(
+            name = "scheduled_flight_id_sequence",
+            sequenceName = "scheduled_flight_id_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "scheduled_flight_id_sequence")
     @Column(name = "schedule_flight_id")
-    private String scheduleFlightId;
+    private Integer scheduleFlightId;
 
     @OneToOne(fetch = FetchType.EAGER)
     @NotNull
@@ -25,6 +31,9 @@ public class ScheduledFlight {
     @NotNull
     @Transient
     private int price;
+    //   dd/mm/yyyy
+    @Column(name = "date")
+    private String date;
 
 
     /*
@@ -35,11 +44,11 @@ public class ScheduledFlight {
     }
 
 
-    public String getScheduleFlightId() {
+    public Integer getScheduleFlightId() {
         return scheduleFlightId;
     }
 
-    public void setScheduleFlightId(String scheduleFlightId) {
+    public void setScheduleFlightId(Integer scheduleFlightId) {
         this.scheduleFlightId = scheduleFlightId;
     }
 
@@ -47,11 +56,12 @@ public class ScheduledFlight {
         this.availableSeats = availableSeats;
     }
 
-    public ScheduledFlight(String scheduleFlightId, Flight flight, Integer availableSeats, Schedule schedule) {
-        this.scheduleFlightId = scheduleFlightId;
-        this.flight = flight;
-        this.availableSeats = availableSeats;
-        this.schedule = schedule;
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     /*
@@ -87,14 +97,38 @@ public class ScheduledFlight {
         this.schedule = schedule;
     }
 
+    public ScheduledFlight( Flight flight, Integer availableSeats, Schedule schedule,  String date) {
+        this.scheduleFlightId = scheduleFlightId;
+        this.flight = flight;
+        this.availableSeats = availableSeats;
+        this.schedule = schedule;
+        this.date = date;
+    }
+
     @Override
-    public String toString() {
-        return "ScheduledFlight{" +
-                "scheduleFlightId='" + scheduleFlightId + '\'' +
-                ", flight=" + flight +
-                ", availableSeats=" + availableSeats +
-                ", schedule=" + schedule +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ScheduledFlight)) return false;
+
+        ScheduledFlight that = (ScheduledFlight) o;
+
+        if (price != that.price) return false;
+        if (!scheduleFlightId.equals(that.scheduleFlightId)) return false;
+        if (!flight.equals(that.flight)) return false;
+        if (!availableSeats.equals(that.availableSeats)) return false;
+        if (!schedule.equals(that.schedule)) return false;
+        return date.equals(that.date);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = scheduleFlightId.hashCode();
+        result = 31 * result + flight.hashCode();
+        result = 31 * result + availableSeats.hashCode();
+        result = 31 * result + schedule.hashCode();
+        result = 31 * result + price;
+        result = 31 * result + date.hashCode();
+        return result;
     }
 
     public int getPrice() {
@@ -108,49 +142,10 @@ public class ScheduledFlight {
         }
 
     }
-
-    public void setPrice(int price) {
-        this.price = price;
+    public void decreaseSeats(int n){
+        availableSeats-=n;
     }
 
-    @Override
-    public int hashCode() {
-        int result = scheduleFlightId.hashCode();
-        result = 31 * result + flight.hashCode();
-        result = 31 * result + availableSeats.hashCode();
-        result = 31 * result + schedule.hashCode();
-        return result;
-    }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        ScheduledFlight other = (ScheduledFlight) obj;
-        if (availableSeats == null) {
-            if (other.availableSeats != null)
-                return false;
-        } else if (!availableSeats.equals(other.availableSeats))
-            return false;
-        if (flight == null) {
-            if (other.flight != null)
-                return false;
-        } else if (!flight.equals(other.flight))
-            return false;
-        if (schedule == null) {
-            if (other.schedule != null)
-                return false;
-        } else if (!schedule.equals(other.schedule))
-            return false;
-        if (scheduleFlightId == null) {
-            if (other.scheduleFlightId != null)
-                return false;
-        } else if (!scheduleFlightId.equals(other.scheduleFlightId))
-            return false;
-        return true;
-    }
+
 }

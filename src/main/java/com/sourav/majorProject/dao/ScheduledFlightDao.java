@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ScheduledFlightDao extends JpaRepository<ScheduledFlight, String> {
-   @Query("SELECT  scheduledFlight  FROM  ScheduledFlight as scheduledFlight,Schedule as schedule WHERE scheduledFlight .scheduleFlightId=schedule .scheduleId AND schedule.srcAirport=?1 and schedule.dstnAirport=?2 and schedule.date=?3")
-   Optional<Iterable<ScheduledFlight>> findScheduledFlightByCoditions(Airport originAirport, Airport destinationAirport, String date);
+public interface ScheduledFlightDao extends JpaRepository<ScheduledFlight, Integer> {
+   @Query("SELECT  scheduledFlight  FROM  ScheduledFlight as scheduledFlight,Schedule as schedule WHERE scheduledFlight .schedule=schedule AND scheduledFlight.date=?3 AND schedule.srcAirport=?1 and schedule.dstnAirport=?2 and scheduledFlight.availableSeats>=?4")
+   Optional<Iterable<ScheduledFlight>> findScheduledFlightByCoditions(Airport originAirport, Airport destinationAirport, String date,int count);
 }

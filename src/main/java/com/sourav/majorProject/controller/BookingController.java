@@ -2,6 +2,7 @@ package com.sourav.majorProject.controller;
 
 import com.sourav.majorProject.exceptions.RecordAlreadyPresentException;
 import com.sourav.majorProject.exceptions.RecordNotFoundException;
+import com.sourav.majorProject.model.BookingDetailFlight;
 import com.sourav.majorProject.model.FlightBooking;
 import com.sourav.majorProject.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,9 @@ public class BookingController {
 
     @PostMapping("/createBooking")
     @ExceptionHandler(RecordAlreadyPresentException.class)
-    public void addBooking(@RequestBody FlightBooking newBooking) {
+    public void   addBooking(@RequestBody BookingDetailFlight bookingDetailFlight) {
+        bookingService.createBooking(bookingDetailFlight);
 
-        bookingService.createBooking(newBooking);
     }
 
     @GetMapping("/readAllBooking")

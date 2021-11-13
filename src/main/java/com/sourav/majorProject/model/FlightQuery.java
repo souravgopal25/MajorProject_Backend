@@ -6,14 +6,24 @@ public class FlightQuery implements Serializable {
     String source;
     String destination;
     String date;
+    int passenger;
+
+    public int getPassenger() {
+        return passenger;
+    }
+
+    public void setPassenger(int passenger) {
+        this.passenger = passenger;
+    }
 
     public FlightQuery() {
     }
 
-    public FlightQuery(String source, String destination, String date) {
+    public FlightQuery(String source, String destination, String date,int pax) {
         this.source = source;
         this.destination = destination;
         this.date = date;
+        this.passenger =pax;
     }
 
     public String getSource() {

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,13 +42,12 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService{
         updateSchedule.setDstnAirport(scheduledFlight.getSchedule().getDstnAirport());
         updateSchedule.setArrTime(scheduledFlight.getSchedule().getArrTime());
         updateSchedule.setDeptTime(scheduledFlight.getSchedule().getDeptTime());
-        updateSchedule.setDate(scheduledFlight.getSchedule().getDate());
         dao.save(updateScheduleFlight);
         return scheduledFlight;
     }
 
     @Override
-    public String removeScheduledFlight(String id) throws RecordNotFoundException {
+    public String removeScheduledFlight(Integer id) throws RecordNotFoundException {
         if (id == null)
             throw new RecordNotFoundException("Enter flight Id");
         Optional<ScheduledFlight> scheduleFlight = dao.findById(id);
@@ -65,7 +65,7 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService{
     }
 
     @Override
-    public ScheduledFlight viewScheduledFlight(String id) throws ScheduledFlightNotFoundException {
+    public ScheduledFlight viewScheduledFlight(Integer id) throws ScheduledFlightNotFoundException {
         if (id == null)
             throw new ScheduledFlightNotFoundException("Enter flight Id");
         Optional<ScheduledFlight> scheduleFlight = dao.findById(id);
@@ -76,10 +76,10 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService{
     }
 
     @Override
-    public Iterable<ScheduledFlight> viewScheduledFlightOnDate(String srcAirport, String destnAirport, String date) throws ScheduledFlightNotFoundException {
+    public Iterable<ScheduledFlight> viewScheduledFlightOnDate(String srcAirport, String destnAirport, String date,int pax) throws ScheduledFlightNotFoundException {
         Airport source=airportDao.getById(srcAirport);
         Airport dest=airportDao.getById(destnAirport);
-       Optional<Iterable<ScheduledFlight>> scheduledFlights=dao.findScheduledFlightByCoditions(source,dest,date);
+       Optional<Iterable<ScheduledFlight>> scheduledFlights=dao.findScheduledFlightByCoditions(source,dest,date,pax);
        if (!scheduledFlights.isPresent()){
            throw new  ScheduledFlightNotFoundException("No Scheduled Flight");
        }else
