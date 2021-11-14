@@ -13,6 +13,7 @@ import java.math.BigInteger;
 
 @RestController
 @RequestMapping("/booking")
+@CrossOrigin(origins = "http://localhost:3000")
 public class BookingController {
 
     @Autowired(required= true)

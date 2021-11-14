@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/airport")
+@CrossOrigin(origins = "http://localhost:3000")
 public class AirportController {
     @Autowired(required = true)
     AirportService airportService;

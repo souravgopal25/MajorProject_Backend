@@ -3,7 +3,7 @@ package com.sourav.majorProject.model;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
-import java.math.BigInteger;
+import java.util.Optional;
 
 @Entity
 public class ScheduledFlight {
@@ -26,7 +26,7 @@ public class ScheduledFlight {
     private Integer availableSeats;
 
     @NotNull
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Schedule schedule;
     @NotNull
     @Transient
@@ -97,7 +97,7 @@ public class ScheduledFlight {
         this.schedule = schedule;
     }
 
-    public ScheduledFlight( Flight flight, Integer availableSeats, Schedule schedule,  String date) {
+    public ScheduledFlight(Flight flight, Integer availableSeats, Schedule schedule, String date) {
         this.scheduleFlightId = scheduleFlightId;
         this.flight = flight;
         this.availableSeats = availableSeats;

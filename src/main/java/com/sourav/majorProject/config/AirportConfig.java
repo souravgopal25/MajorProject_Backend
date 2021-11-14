@@ -1,8 +1,6 @@
 package com.sourav.majorProject.config;
 
-import com.cedarsoftware.util.io.JsonReader;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.sourav.majorProject.dao.AirportDao;
 import com.sourav.majorProject.dao.FlightDao;
 import com.sourav.majorProject.dao.ScheduleDao;
@@ -11,18 +9,16 @@ import com.sourav.majorProject.model.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.core.parameters.P;
 import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.math.BigInteger;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Configuration
 public class AirportConfig {
@@ -44,7 +40,7 @@ public class AirportConfig {
     }
 
     @Bean
-    CommandLineRunner commandLineRunner(ScheduleDao scheduleDao, AirportDao airportDao, FlightDao flightDao, ScheduledFlightDao scheduledFlightDao){
+    CommandLineRunner commandLineRunner(ScheduleDao scheduleDao, AirportDao airportDao, FlightDao flightDao, ScheduledFlightDao scheduledFlightDao) {
         return args -> {
             ResponseAirportItem[] responseAirportItems = getJSON("src/main/resources/json/airports.json");
             List<Airport> list = new ArrayList<>();
@@ -53,13 +49,13 @@ public class AirportConfig {
                 list.add(airport);
             }
             airportDao.saveAll(list);
-            Flight flight=new Flight("6E525","Indigo","A320",180);
+           Flight flight=new Flight("6E525","Indigo","A320",180);
             flightDao.save(flight);
             Airport airport=airportDao.getById("IXA");
             Airport airport1=airportDao.getById("AGX");
             Schedule schedule=new Schedule("6E525",airport,airport1,"05:00","09:00",5000,7500);
 
-            ScheduledFlight scheduledFlight1=new ScheduledFlight(flight,flight.getSeatCapacity(),schedule,"10/11/2021");
+            ScheduledFlight scheduledFlight1 = new ScheduledFlight(flight, flight.getSeatCapacity(), schedule, "15/11/2021");
             scheduledFlightDao.save(scheduledFlight1);
 //              BookingDetailFlight bookingDetailFlight=new BookingDetailFlight();
 //              bookingDetailFlight.setDate("13/11/2021");
@@ -71,8 +67,7 @@ public class AirportConfig {
 //              passenger.setPassengerName("Sourav");
 //              passenger.setPassengerUIN("ZXAdasfasdf");
 //              bookingDetailFlight.setPassengersList(Arrays.asList(passenger));
-//            System.out.println(new Gson().toJson(bookingDetailFlight,BookingDetailFlight.class));
-
+            //   System.out.println(new Gson().toJson(bookingDetailFlight,BookingDetailFlight.class));
 
 
         };

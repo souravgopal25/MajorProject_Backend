@@ -21,6 +21,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -49,6 +50,8 @@ public class UserController {
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public ResponseEntity<?> signup(@RequestBody User user) throws Exception {
+        System.out.println("signup hit");
+        System.out.println(user.toString());
         boolean isPresent = userDetailService.existsUser(user.getEmail());
         if (!isPresent) {
             String uid = uidGenerator.getuid(user);

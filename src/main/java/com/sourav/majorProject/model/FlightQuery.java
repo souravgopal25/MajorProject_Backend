@@ -49,4 +49,14 @@ public class FlightQuery implements Serializable {
     public void setDate(String date) {
         this.date = date;
     }
+
+    @Override
+    public String toString() {
+        return "FlightQuery{" +
+                "source='" + source + '\'' +
+                ", destination='" + destination + '\'' +
+                ", date='" + date + '\'' +
+                ", passenger=" + passenger +
+                '}';
+    }
 }

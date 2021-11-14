@@ -11,6 +11,8 @@ import java.math.BigInteger;
 
 @RestController
 @RequestMapping("/flight")
+@CrossOrigin(origins = "http://localhost:3000")
+
 public class FlightController {
     @Autowired(required = true)
     FlightService flightService;
