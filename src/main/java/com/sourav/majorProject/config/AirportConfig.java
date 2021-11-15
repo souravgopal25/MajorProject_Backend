@@ -42,21 +42,21 @@ public class AirportConfig {
     @Bean
     CommandLineRunner commandLineRunner(ScheduleDao scheduleDao, AirportDao airportDao, FlightDao flightDao, ScheduledFlightDao scheduledFlightDao) {
         return args -> {
-            ResponseAirportItem[] responseAirportItems = getJSON("src/main/resources/json/airports.json");
-            List<Airport> list = new ArrayList<>();
-            for (ResponseAirportItem obj : responseAirportItems) {
-                Airport airport = new Airport(obj.getIATACode(), obj.getCityName(), obj.getAirportName());
-                list.add(airport);
-            }
-            airportDao.saveAll(list);
-           Flight flight=new Flight("6E525","Indigo","A320",180);
-            flightDao.save(flight);
-            Airport airport=airportDao.getById("IXA");
-            Airport airport1=airportDao.getById("AGX");
-            Schedule schedule=new Schedule("6E525",airport,airport1,"05:00","09:00",5000,7500);
-
-            ScheduledFlight scheduledFlight1 = new ScheduledFlight(flight, flight.getSeatCapacity(), schedule, "15/11/2021");
-            scheduledFlightDao.save(scheduledFlight1);
+//            ResponseAirportItem[] responseAirportItems = getJSON("src/main/resources/json/airports.json");
+//            List<Airport> list = new ArrayList<>();
+//            for (ResponseAirportItem obj : responseAirportItems) {
+//                Airport airport = new Airport(obj.getIATACode(), obj.getCityName(), obj.getAirportName());
+//                list.add(airport);
+//            }
+//            airportDao.saveAll(list);
+//           Flight flight=new Flight("6E525","Indigo","A320",180);
+//            flightDao.save(flight);
+//            Airport airport=airportDao.getById("IXA");
+//            Airport airport1=airportDao.getById("AGX");
+//            Schedule schedule=new Schedule("6E525",airport,airport1,"05:00","09:00",5000,7500);
+//
+//            ScheduledFlight scheduledFlight1 = new ScheduledFlight(flight, flight.getSeatCapacity(), schedule, "30/11/2021");
+//            scheduledFlightDao.save(scheduledFlight1);
 //              BookingDetailFlight bookingDetailFlight=new BookingDetailFlight();
 //              bookingDetailFlight.setDate("13/11/2021");
 //              bookingDetailFlight.setMoneyCharged(5000.00);

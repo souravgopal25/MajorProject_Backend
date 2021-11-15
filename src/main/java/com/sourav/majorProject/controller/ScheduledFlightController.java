@@ -18,7 +18,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/scheduledFlight")
-@CrossOrigin(origins = "http://localhost:3000/book_flight")
 public class ScheduledFlightController {
     @Autowired
     ScheduledFlightService scheduleFlightService;
@@ -79,7 +78,7 @@ public class ScheduledFlightController {
     public Iterable<ScheduledFlight> viewAllSF() {
         return scheduleFlightService.viewAllScheduledFlights();
     }
-    @GetMapping("/search")
+    @RequestMapping(value = "/search",method = RequestMethod.POST)
     public Iterable<ScheduledFlight> viewScheduledFlight(@RequestBody FlightQuery flightQuery){
         System.out.println(flightQuery.toString());
 
