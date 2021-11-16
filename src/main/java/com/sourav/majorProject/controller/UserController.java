@@ -4,6 +4,7 @@ import com.sourav.majorProject.dao.UserDao;
 import com.sourav.majorProject.model.AuthenticationRequest;
 import com.sourav.majorProject.model.AuthenticationResponse;
 import com.sourav.majorProject.model.User;
+import com.sourav.majorProject.model.UserModelForResponse;
 import com.sourav.majorProject.service.MyUserDetailService;
 import com.sourav.majorProject.service.UIDGenerator;
 import com.sourav.majorProject.utilService.JwtUtil;
@@ -21,7 +22,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 public class UserController {
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -44,10 +45,12 @@ public class UserController {
         }
         final UserDetails userDetails = userDetailService.loadUserByUsername(authenticationRequest.getUsername());
         final String jwt = jwtUtil.generateToken(userDetails);
-        AuthenticationResponse response = new AuthenticationResponse(jwt);
+        User user=userDetailService.getUserByEmail(authenticationRequest.getUsername());
+        UserModelForResponse obj=new UserModelForResponse(user.getFirstName(),user.getLastName(),user.getEmail(),user.uid,user.getPhotoUrl());
+        AuthenticationResponse response = new AuthenticationResponse(jwt, obj);
         return ResponseEntity.ok(response);
     }
-
+    //TODO SIGNUP ME ADD USER
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public ResponseEntity<?> signup(@RequestBody User user) throws Exception {
         System.out.println("signup hit");
@@ -64,7 +67,8 @@ public class UserController {
             }
             final UserDetails userDetails = userDetailService.loadUserByEmail(user.getEmail());
             final String jwt = jwtUtil.generateToken(userDetails);
-            AuthenticationResponse response = new AuthenticationResponse(jwt);
+            UserModelForResponse obj=new UserModelForResponse(user.getFirstName(),user.getLastName(),user.getEmail(),user.uid,user.getPhotoUrl());
+            AuthenticationResponse response = new AuthenticationResponse(jwt, obj);
             return ResponseEntity.ok(response);
         } else {
             Map<String,Object> map=new HashMap<>();

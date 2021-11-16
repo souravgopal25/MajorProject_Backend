@@ -1,5 +1,7 @@
 package com.sourav.majorProject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.math.BigInteger;
@@ -37,7 +39,7 @@ public class Flight {
     public void setCarrierName(String carrierName) {
         this.carrierName = carrierName;
     }
-
+    @JsonIgnore
     public String getFlightModel() {
         return flightModel;
     }
@@ -46,7 +48,8 @@ public class Flight {
         this.flightModel = flightModel;
     }
 
-    public int getSeatCapacity() {
+   @JsonIgnore
+    public int getCap(){
         return seatCapacity;
     }
 

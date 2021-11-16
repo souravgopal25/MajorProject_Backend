@@ -1,5 +1,7 @@
 package com.sourav.majorProject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.math.BigInteger;
 
@@ -48,7 +50,7 @@ public class Schedule {
      * Parameterized constructor
      */
 
-
+    @JsonIgnore
     public int getMinPrice() {
         return minPrice;
     }
@@ -56,7 +58,7 @@ public class Schedule {
     public void setMinPrice(int minPrice) {
         this.minPrice = minPrice;
     }
-
+    @JsonIgnore
     public int getMaxPrice() {
         return maxPrice;
     }

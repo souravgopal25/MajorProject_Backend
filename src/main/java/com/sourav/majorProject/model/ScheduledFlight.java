@@ -132,7 +132,7 @@ public class ScheduledFlight {
     }
 
     public int getPrice() {
-        int totalSeats = flight.getSeatCapacity();
+        int totalSeats = flight.getCap();
         float percent = availableSeats / totalSeats;
         int price1 = (int) (schedule.getMinPrice() * (1 + (1 - percent)));
         if (price1 > getSchedule().getMaxPrice()) {

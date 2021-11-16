@@ -25,6 +25,11 @@ public class MyUserDetailService implements UserDetailsService {
         user.orElseThrow(()-> new UsernameNotFoundException("Not Found "+email));
         return user.map(MyUserDetail::new).get();
     }
+    public User getUserByEmail(String email)throws UsernameNotFoundException{
+        Optional<User> user=userdao.findByEmail(email);
+        user.orElseThrow(()-> new UsernameNotFoundException("Not Found "+email));
+        return user.get();
+    }
     public boolean existsUser(String email) {
         Optional<User> user = userdao.findByEmail(email);
         if (user.isPresent()) {

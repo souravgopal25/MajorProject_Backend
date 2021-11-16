@@ -1,6 +1,6 @@
 package com.sourav.majorProject.model;
 
-import org.hibernate.annotations.NotFound;
+
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -16,9 +16,10 @@ public class User {
             sequenceName = "user_sequence",
             allocationSize = 1
     )
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "user_sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
     private int id;
     @NonNull
+
     private String password;
     private boolean active;
     @NonNull
@@ -36,7 +37,7 @@ public class User {
     @OneToMany
     List<FlightBooking> flightBookings;
 
-    public User( @NonNull String password,  @NonNull String roles, @NonNull String firstName, @NonNull String lastName, @NonNull String uid, @Nullable String photoUrl, @NonNull String email) {
+    public User(@NonNull String password, @NonNull String roles, @NonNull String firstName, @NonNull String lastName, @NonNull String uid, @Nullable String photoUrl, @NonNull String email) {
         this.password = password;
         this.active = true;
         this.roles = roles;
