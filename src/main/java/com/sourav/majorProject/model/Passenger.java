@@ -11,13 +11,20 @@ public class Passenger {
             sequenceName = "passengerNumber",
             allocationSize = 1
     )
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "passengerNumber")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "passengerNumber")
     private BigInteger pnrNumber;
     private String passengerName;
     private int passengerAge;
+    private String gender;
 
-    private String passengerUIN;
 
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 
     public BigInteger getPnrNumber() {
         return pnrNumber;
@@ -43,13 +50,7 @@ public class Passenger {
         this.passengerAge = passengerAge;
     }
 
-    public String getPassengerUIN() {
-        return passengerUIN;
-    }
 
-    public void setPassengerUIN(String passengerUIN) {
-        this.passengerUIN = passengerUIN;
-    }
 
 
 }

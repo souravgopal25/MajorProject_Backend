@@ -1,5 +1,6 @@
 package com.sourav.majorProject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -38,7 +39,7 @@ public class FlightBooking {
         this.user = user;
         this.scheduledFlight = scheduledFlight;
     }
-
+    @JsonIgnore
     public User getUser() {
         return user;
     }

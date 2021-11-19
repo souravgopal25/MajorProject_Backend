@@ -16,14 +16,13 @@ import java.math.BigInteger;
 @CrossOrigin(origins = "http://localhost:3000")
 public class BookingController {
 
-    @Autowired(required= true)
+    @Autowired(required = true)
     BookingService bookingService;
 
     @PostMapping("/createBooking")
     @ExceptionHandler(RecordAlreadyPresentException.class)
-    public void   addBooking(@RequestBody BookingDetailFlight bookingDetailFlight) {
-        bookingService.createBooking(bookingDetailFlight);
-
+    public ResponseEntity<?> addBooking(@RequestBody BookingDetailFlight bookingDetailFlight) {
+        return bookingService.createBooking(bookingDetailFlight);
     }
 
     @GetMapping("/readAllBooking")

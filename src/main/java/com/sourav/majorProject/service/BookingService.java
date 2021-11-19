@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import java.math.BigInteger;
 
 public interface BookingService {
-    public void createBooking(BookingDetailFlight bookingDetailFlight);
+    public ResponseEntity<FlightBooking> createBooking(BookingDetailFlight bookingDetailFlight);
 
     public FlightBooking updateBooking(FlightBooking newBooking);
 

@@ -30,7 +30,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     @Transactional
-    public void createBooking(BookingDetailFlight bookingDetailFlight) {
+    public ResponseEntity<FlightBooking> createBooking(BookingDetailFlight bookingDetailFlight) {
 //        Optional<FlightBooking> findBookingById = bookingDao.findById(newBooking.getBookingId());
 //        try {
 //            if (!findBookingById.isPresent()) {
@@ -51,8 +51,9 @@ public class BookingServiceImpl implements BookingService {
         ScheduledFlight scheduledFlight = scheduledFlightDao.findById(bookingDetailFlight.getScheduledFlightId()).
                 orElseThrow(() -> new ScheduledFlightNotFoundException("Scheduled FLight Not Found " + bookingDetailFlight.getScheduledFlightId()));
         scheduledFlight.decreaseSeats(noOfPassengers);
-        FlightBooking flightBooking = new FlightBooking(bookingDetailFlight.getPassengersList(), bookingDetailFlight.getDate(), noOfPassengers, bookingDetailFlight.getMoneyCharged(), user.get(),scheduledFlight);
-        bookingDao.save(flightBooking);
+        FlightBooking flightBooking = new FlightBooking(bookingDetailFlight.getPassengersList(), bookingDetailFlight.getDate(), noOfPassengers, bookingDetailFlight.getMoneyCharged(), user.get(), scheduledFlight);
+        FlightBooking flightBooking1 = bookingDao.save(flightBooking);
+        return new ResponseEntity<FlightBooking>(flightBooking1, HttpStatus.OK);
 
 
     }
