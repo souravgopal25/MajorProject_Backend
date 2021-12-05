@@ -52,7 +52,7 @@ public class Flight {
     public int getCap(){
         return seatCapacity;
     }
-
+    @JsonIgnore
     public void setSeatCapacity(int seatCapacity) {
         this.seatCapacity = seatCapacity;
     }

@@ -6,7 +6,6 @@ import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.util.List;
-
 @Entity
 @Table(name = "user_table")
 public class User {

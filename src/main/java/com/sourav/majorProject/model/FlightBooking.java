@@ -48,6 +48,14 @@ public class FlightBooking {
         this.user = user;
     }
 
+    public ScheduledFlight getScheduledFlight() {
+        return scheduledFlight;
+    }
+
+    public void setScheduledFlight(ScheduledFlight scheduledFlight) {
+        this.scheduledFlight = scheduledFlight;
+    }
+
     public FlightBooking() {
 
     }
